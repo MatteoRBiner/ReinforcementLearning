@@ -138,15 +138,23 @@ def interactive_action(player_hand, dealer_hand):
   return (action, ())
 
 
-def naive_action(player_hand, dealer_hand):
+def naive_action_hit(player_hand, dealer_hand):
   """
   Hit until bust.
   :param player_hand: list of cards
   :param dealer_hand: single card
   :return: (action, empty)
   """
-  return "h", ()
+  return ("h", ())
 
+def naive_action_stand(player_hand, dealer_hand):
+  """
+  Always stand.
+  :param player_hand: list of cards
+  :param dealer_hand: single card
+  :return: (action, empty)
+  """
+  return ("s", ())
 
 if __name__ == "__main__":
   logging.getLogger().setLevel(logging.INFO)
