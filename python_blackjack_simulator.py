@@ -100,7 +100,7 @@ def game(get_player_action):
   """
   # store list of data that
   player_data_lst = []
-  logging.info("WELCOME TO BLACKJACK!\n")
+  #logging.info("WELCOME TO BLACKJACK!\n")
   global deck
   deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
   dealer_hand = deal(deck)
@@ -108,8 +108,8 @@ def game(get_player_action):
   choice = 0
   reward = -2.0
   while choice != "q":
-    logging.info("The dealer is showing a " + str(dealer_hand[0]))
-    logging.info("You have a " + str(player_hand) + " for a total of " + str(total(player_hand)))
+    #logging.info("The dealer is showing a " + str(dealer_hand[0]))
+    #logging.info("You have a " + str(player_hand) + " for a total of " + str(total(player_hand)))
     if total(player_hand) >= 21 or total(dealer_hand) >= 21:
       choice = "s"
     else:
@@ -148,22 +148,9 @@ def naive_action(player_hand, dealer_hand):
   return "h", ()
 
 
-def hit_until_17(player_hand, dealer_hand):
-  """
-  Hit until score > 17 or bust
-  :param player_hand: list of cards
-  :param dealer_hand: single card
-  :return: (action, empty)
-  """
-  action = "h"
-  if total(player_hand) >= 17:
-    action = "s"
-  return action, ()
-
-
 if __name__ == "__main__":
   logging.getLogger().setLevel(logging.INFO)
-  (reward, player_data_lst, final_state) = game(hit_until_17)
+  (reward, player_data_lst, final_state) = game(naive_action)
   print(f"reward: {reward}")
   print(f"player_data_lst: {player_data_lst}")
   print(f"final_state: {final_state}")

@@ -1,10 +1,11 @@
+import strategies
 import python_blackjack_simulator as bj
 
 """
 define number of repetitions and action
 """
 repetitions = 100000
-action = bj.hit_until_17
+action = strategies.hit_until_17
 
 if __name__ == "__main__":
     total_reward = 0
