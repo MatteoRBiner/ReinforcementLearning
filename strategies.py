@@ -35,7 +35,7 @@ def expected_value_strategy(player_hand, dealer_hand):
     else:
         return ("s", ())
   else:
-    total_player, used_aces = total(player_hand, True)
+    total_player, used_aces = bj.total(player_hand, True)
     if used_aces == 1:
         if not(dealer_hand == "A"):
             expected_value_1 = (total_A1 + 10 - bj.total(player_hand) - bj.total(dealer_hand)) / number_of_remaining_cards
