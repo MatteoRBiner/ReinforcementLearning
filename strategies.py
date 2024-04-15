@@ -1,8 +1,19 @@
 import python_blackjack_simulator as bj
 
+
+def naive_action(player_hand, dealer_hand):
+  """
+  Hit until bust.
+  :param player_hand: list of cards
+  :param dealer_hand: single card
+  :return: (action, empty)
+  """
+  return "h", ()
+
+
 def hit_until_17(player_hand, dealer_hand):
   """
-  Hit until score >= 17 or bust
+  Hit until score > 17 or bust
   :param player_hand: list of cards
   :param dealer_hand: single card
   :return: (action, empty)
@@ -10,7 +21,8 @@ def hit_until_17(player_hand, dealer_hand):
   action = "h"
   if bj.total(player_hand) >= 17:
     action = "s"
-  return (action, ())
+  return action, ()
+
 
 def expected_value_strategy(player_hand, dealer_hand):
   """
@@ -19,15 +31,15 @@ def expected_value_strategy(player_hand, dealer_hand):
   :param dealer_hand: single card
   :return: (action, empty)
   """
-  number_of_remaining_cards = 52 - len(player_hand) - 1
-  total_A1 = 340
+  number_of_remaining_cards = (52*bj.number_of_decks) - len(player_hand) - 1
+  total_A1 = (340*bj.number_of_decks)
   ace = False
   for card in player_hand:
     if card == "A":
         ace = True
   if not(ace):
     if not(dealer_hand == "A"):
-        expected_value_1 = (total_A1 - bj.total(player_hand) - bj.total(dealer_hand)) / number_of_remaining_cards
+        expected_value_1 = (total_A1 - bj.total(player_hand) - bj.total(str(dealer_hand))) / number_of_remaining_cards
     else:
         expected_value_1 = (total_A1 - bj.total(player_hand) - 1) / number_of_remaining_cards
     if bj.total(player_hand) + expected_value_1 <= 21:
@@ -38,7 +50,7 @@ def expected_value_strategy(player_hand, dealer_hand):
     total_player, used_aces = bj.total(player_hand, True)
     if used_aces == 1:
         if not(dealer_hand == "A"):
-            expected_value_1 = (total_A1 + 10 - bj.total(player_hand) - bj.total(dealer_hand)) / number_of_remaining_cards
+            expected_value_1 = (total_A1 + 10 - bj.total(player_hand) - bj.total(str(dealer_hand))) / number_of_remaining_cards
         else:
             expected_value_1 = (total_A1 + 10 - bj.total(player_hand) - 1) / number_of_remaining_cards
         # Compare cases like: (A + 9 = 20 -> stand) and (A + 5 = 16 -> hit)
@@ -48,7 +60,7 @@ def expected_value_strategy(player_hand, dealer_hand):
             return ("s", ())
     else:
         if not(dealer_hand == "A"):
-            expected_value_1 = (total_A1 - bj.total(player_hand) - bj.total(dealer_hand)) / number_of_remaining_cards
+            expected_value_1 = (total_A1 - bj.total(player_hand) - bj.total(str(dealer_hand))) / number_of_remaining_cards
         else:
             expected_value_1 = (total_A1 - bj.total(player_hand) - 1) / number_of_remaining_cards
         if bj.total(player_hand) + expected_value_1 <= 21:
