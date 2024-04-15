@@ -11,7 +11,9 @@ import random
 import logging
 #logging.basicConfig(level=logging.INFO)
 
-deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
+
+number_of_decks = 6
+deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*(4 * number_of_decks)
 
 
 def deal(deck):
@@ -38,7 +40,7 @@ def total(hand, return_usable_ace=False):
       total += 1
       aces += 1
     else:
-      total += card
+      total += int(card)
   if total < 11 and aces > 0:
     total += 10
     used_aces += 1
@@ -102,7 +104,7 @@ def game(get_player_action):
   player_data_lst = []
   #logging.info("WELCOME TO BLACKJACK!\n")
   global deck
-  deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*4
+  deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*(4*number_of_decks)
   dealer_hand = deal(deck)
   player_hand = deal(deck)
   choice = 0
@@ -138,27 +140,9 @@ def interactive_action(player_hand, dealer_hand):
   return (action, ())
 
 
-def naive_action_hit(player_hand, dealer_hand):
-  """
-  Hit until bust.
-  :param player_hand: list of cards
-  :param dealer_hand: single card
-  :return: (action, empty)
-  """
-  return ("h", ())
-
-def naive_action_stand(player_hand, dealer_hand):
-  """
-  Always stand.
-  :param player_hand: list of cards
-  :param dealer_hand: single card
-  :return: (action, empty)
-  """
-  return ("s", ())
-
 if __name__ == "__main__":
   logging.getLogger().setLevel(logging.INFO)
-  (reward, player_data_lst, final_state) = game(naive_action)
+  (reward, player_data_lst, final_state) = game(interactive_action)
   print(f"reward: {reward}")
   print(f"player_data_lst: {player_data_lst}")
   print(f"final_state: {final_state}")
