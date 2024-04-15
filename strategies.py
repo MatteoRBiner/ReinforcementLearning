@@ -19,7 +19,7 @@ def expected_value_strategy(player_hand, dealer_hand):
   :param dealer_hand: single card
   :return: (action, empty)
   """
-  number_of_remaining_cards = 4*13 - len(player_hand) - 1
+  number_of_remaining_cards = 52 - len(player_hand) - 1
   total_A1 = 340
   ace = False
   for card in player_hand:
