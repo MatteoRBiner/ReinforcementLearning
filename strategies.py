@@ -14,7 +14,7 @@ def hit_until_17(player_hand, dealer_hand):
 
 def expected_value_strategy(player_hand, dealer_hand):
   """
-  Hit if score + (expected value of next cared) <= 21
+  Hit if (score + (expected value of next cared)) <= 21
   :param player_hand: list of cards
   :param dealer_hand: single card
   :return: (action, empty)
