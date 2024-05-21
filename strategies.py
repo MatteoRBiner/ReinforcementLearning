@@ -1,4 +1,12 @@
 import python_blackjack_simulator as bj
+import numpy.random as rd
+
+
+def random_action(player_hand, dealer_hand):
+    if rd.random() < 0.5:
+        return 'h'
+    else:
+        return 's'
 
 
 def naive_action(player_hand, dealer_hand):

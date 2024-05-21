@@ -39,7 +39,7 @@ def total(hand, return_usable_ace=False):
     elif card == "A":
       total += 1
       aces += 1
-    else:
+    elif card != '[' and card != ',' and card != '\'' and card != ' ' and card != ']':
       total += int(card)
   if total < 11 and aces > 0:
     total += 10
