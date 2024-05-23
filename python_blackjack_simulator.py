@@ -133,7 +133,7 @@ def game(action_agent, get_player_action):
           action_state = action_agent(player_hands, player_hand, dealer_hand[0])
         else:
           action_state = get_player_action(player_hands, player_hand, dealer_hand[0])
-        choice = action_state[0]
+        choice = action_state
         player_data_lst.append(action_state)
       if choice == "h":
         hit(player_hand)
