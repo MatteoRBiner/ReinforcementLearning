@@ -22,14 +22,14 @@ class BlackJackAgentV1:
     def get_action(self, players_hand, player_hand, dealer_hand):
         if np.random.random() < self.epsilon:
             if np.random.random() < 0.5:
-                return 'h'
+                return "h"
             else:
-                return 's'
+                return "s"
         else:
             if self.q_values[self.get_index(players_hand, player_hand, dealer_hand)] > -0.007:
-                return 's'
+                return "s"
             else:
-                return 'h'
+                return "h"
 
     def decay_epsilon(self):
         self.epsilon = max(self.final_epsilon, self.epsilon * self.epsilon_decay)
