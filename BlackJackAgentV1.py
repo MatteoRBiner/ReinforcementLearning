@@ -7,15 +7,12 @@ class BlackJackAgentV1:
                  learning_rate: float,
                  initial_epsilon: float,
                  epsilon_decay: float,
-                 final_epsilon: float,
-                 discount_factor: float = 0.95):
+                 final_epsilon: float):
         self.q_values = np.zeros(472)
         self.lr = learning_rate
         self.epsilon = initial_epsilon
         self.epsilon_decay = epsilon_decay
         self.final_epsilon = final_epsilon
-        self.discount_factor = discount_factor
-        self.training_error = []
 
     def get_action(self, players_hand, player_hand, dealer_hand):
         if np.random.random() < self.epsilon:
@@ -30,7 +27,7 @@ class BlackJackAgentV1:
                 return "h"
 
     def decay_epsilon(self):
-        self.epsilon = max(self.final_epsilon, self.epsilon * self.epsilon_decay)
+        self.epsilon = max(self.final_epsilon, self.epsilon - self.epsilon_decay)
 
     def get_index(self, players_hand, player_hand, dealer_hand):
         other_players_value = 0
@@ -59,5 +56,5 @@ class BlackJackAgentV1:
 
 if __name__ == "__main__":
     repetitions = 10000
-    agent = BlackJackAgentV1(0.01, 0.5, 0.9, 0.001)
+    agent = BlackJackAgentV1(0.01, 1, 2/repetitions, 0.1)
     agent.train(repetitions)
