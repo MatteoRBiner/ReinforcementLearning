@@ -49,7 +49,7 @@ class BlackJackAgentV1:
         total_reward = 0
         for i in range(repetitions):
             reward, player_data, final_state = bj.game(self.get_action, strategies.expected_value_strategy)
-            total_reward = (i * total_reward + reward[0]) / (i+1)
+            total_reward += reward[0]
             if bj.total(final_state[0][0]) > 21:
                 self.q_values[self.get_index(final_state[0], final_state[0][0][:len(final_state[0][0])-1], final_state[1][0])] += self.lr*reward[0]
                 self.q_values[self.get_index(final_state[0], final_state[0][0][:len(final_state[0][0])-1], final_state[1][0])] /= 2
@@ -57,8 +57,7 @@ class BlackJackAgentV1:
                 self.q_values[self.get_index(final_state[0], final_state[0][0], final_state[1][0])] += self.lr * reward[0]
                 self.q_values[self.get_index(final_state[0], final_state[0][0], final_state[1][0])] /= 2
             self.decay_epsilon()
-
-        print(total_reward)
+        print(f"Average reward during training: " + total_reward/i)
 
 repetitions = 10000
 
