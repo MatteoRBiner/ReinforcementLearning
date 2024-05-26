@@ -57,7 +57,7 @@ class BlackJackAgentV1:
                 self.q_values[self.get_index(final_state[0], final_state[0][0], final_state[1][0])] += self.lr * reward[0]
                 self.q_values[self.get_index(final_state[0], final_state[0][0], final_state[1][0])] /= 2
             self.decay_epsilon()
-        print(f"Average reward during training: " + total_reward/i)
+        print(f"Average reward during training: {total_reward/i}")
 
 repetitions = 10000
 
