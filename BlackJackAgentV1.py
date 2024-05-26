@@ -1,4 +1,3 @@
-from collections import defaultdict
 import python_blackjack_simulator as bj
 import numpy as np
 import strategies
