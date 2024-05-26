@@ -13,14 +13,12 @@ import strategies
 import BlackJackAgentV1 as ag
 #logging.basicConfig(level=logging.INFO)
 
-
 number_of_decks = 6
 number_of_players = 4
 # there is either 1 or 0 agents. if there is an agent, then there are (number_of_players - 1) other players at the table
 # if there is one agent, then he is Player0
 number_of_agents = 1
 deck = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]*(4 * number_of_decks)
-
 
 def deal(deck):
   hand = []
@@ -33,7 +31,6 @@ def deal(deck):
     if card == 14:card = "A"
     hand.append(card)
   return hand
-
 
 def total(hand, return_usable_ace=False):
   total = 0
@@ -55,7 +52,6 @@ def total(hand, return_usable_ace=False):
   else:
     return total
 
-
 def hit(hand):
   card = deck.pop()
   if card == 11:card = "J"
@@ -64,7 +60,6 @@ def hit(hand):
   if card == 14:card = "A"
   hand.append(card)
   return hand
-
 
 def print_results(dealer_hand, player_hand, name):
   logging.info("The dealer has a " + str(dealer_hand) + " for a total of " + str(total(dealer_hand)))
@@ -163,11 +158,10 @@ def interactive_action(player_hands, player_hand, dealer_hand):
   assert action in ["s", "h", "q"]
   return (action, ())
 
-agent = ag.BlackJackAgentV1(0.01, 0.5, 0.9, 0.001)
-action_agent = agent.get_action
-
 if __name__ == "__main__":
   logging.getLogger().setLevel(logging.INFO)
+  agent = ag.BlackJackAgentV1(0.01, 0.5, 0.9, 0.001)
+  action_agent = agent.get_action
   (rewards, players_data, final_state) = game(action_agent, strategies.expected_value_strategy)
   for i in range(len(rewards)):
     print(f"player: {str(i)}")
