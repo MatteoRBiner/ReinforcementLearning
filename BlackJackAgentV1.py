@@ -3,7 +3,6 @@ import python_blackjack_simulator as bj
 import numpy as np
 import strategies
 
-
 class BlackJackAgentV1:
     def __init__(self,
                  learning_rate: float,
@@ -59,8 +58,7 @@ class BlackJackAgentV1:
             self.decay_epsilon()
         print(f"Average reward during training: {total_reward/i}")
 
-repetitions = 10000
-
 if __name__ == "__main__":
+    repetitions = 10000
     agent = BlackJackAgentV1(0.01, 0.5, 0.9, 0.001)
     agent.train(repetitions)
