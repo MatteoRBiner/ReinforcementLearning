@@ -21,7 +21,7 @@ class BlackJackAgentV1:
             else:
                 return "s"
         else:
-            if self.q_values[self.get_index(players_hand, player_hand, dealer_hand)] > -0.007:
+            if self.q_values[self.get_index(players_hand, player_hand, dealer_hand)] > -0.03:
                 return "s"
             else:
                 return "h"
