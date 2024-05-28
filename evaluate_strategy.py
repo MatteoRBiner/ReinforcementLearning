@@ -1,14 +1,14 @@
 import strategies
-import BlackJackAgentV1 as ag
+import BlackJackAgentV2 as ag
 import python_blackjack_simulator as bj
 import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
-    repetitions = 10000
+    repetitions = 5000
     total_reward = 0
-    agent = ag.BlackJackAgentV1(0.001, 1, 2/repetitions, 0.1)
+    agent = ag.BlackJackAgentV2(0.01, 1, 2/repetitions, 0.1)
     agent.train(repetitions)
-    action = agent.get_action
+    action = agent.get_action_final
     reward_list = []
     average_reward = 0
     length_list = []
