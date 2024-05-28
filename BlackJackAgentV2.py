@@ -41,6 +41,25 @@ class BlackJackAgentV2:
             else:
                 return "h"
 
+    def get_action_final(self, players_hand, player_hand, dealer_hand):
+        other_players_sum = 0
+        for hand in players_hand: 
+            other_players_sum += bj.total(hand)
+        player_sum , used_aces = bj.total(player_hand, True)
+        has_ace = 0
+        for card in players_hand:
+            if card == 'A':
+                has_ace += 1
+
+        usable_aces = has_ace - used_aces
+        obs = tuple[player_sum, dealer_hand, usable_aces, other_players_sum]
+
+        action = int(np.argmax(self.q_values[obs]))
+        if action == 0:
+            return "s"
+        else:
+            return "h"
+
     def decay_epsilon(self):
         self.epsilon = max(self.final_epsilon, self.epsilon - self.epsilon_decay)
 
@@ -73,7 +92,7 @@ class BlackJackAgentV2:
             usable_aces = has_ace - used_aces
             obs = tuple[player_sum, dealer_hand, usable_aces, other_players_sum]
             if not(skip):
-                temporal_difference = (reward[0] - self.q_values[obs][action])
+                temporal_difference = (reward[0] + 0.95 * np.max(self.q_values[obs]) - self.q_values[obs][action])
                 self.q_values[obs][action] = (self.q_values[obs][action] + self.lr * temporal_difference)
             self.decay_epsilon()
 
