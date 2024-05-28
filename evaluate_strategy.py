@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 if __name__ == "__main__":
     repetitions = 10000
     total_reward = 0
-    agent = ag.BlackJackAgentV1(0.01, 1, 2/repetitions, 0.1)
+    agent = ag.BlackJackAgentV1(0.001, 1, 2/repetitions, 0.1)
     agent.train(repetitions)
     action = agent.get_action
     reward_list = []
