@@ -56,5 +56,5 @@ class BlackJackAgentV1:
 
 if __name__ == "__main__":
     repetitions = 10000
-    agent = BlackJackAgentV1(0.01, 1, 2/repetitions, 0.1)
+    agent = BlackJackAgentV1(0.001, 1, 2/repetitions, 0.1)
     agent.train(repetitions)
