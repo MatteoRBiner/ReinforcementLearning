@@ -27,19 +27,22 @@ class BlackJackAgentV2:
                 has_ace += 1
 
         usable_aces = has_ace - used_aces
-        obs = tuple[player_sum, dealer_hand, usable_aces, other_players_sum]
+        #obs = tuple[player_sum, dealer_hand, usable_aces, other_players_sum]
+        obs = tuple[player_sum, dealer_hand, usable_aces]
 
         if np.random.random() < self.epsilon:
             if np.random.random() < 0.5:
                 return "h"
             else:
                 return "s"
+                
         else:
             action = int(np.argmax(self.q_values[obs]))
             if action == 0:
                 return "s"
             else:
                 return "h"
+
 
     def get_action_final(self, players_hand, player_hand, dealer_hand):
         other_players_sum = 0
@@ -52,8 +55,8 @@ class BlackJackAgentV2:
                 has_ace += 1
 
         usable_aces = has_ace - used_aces
-        obs = tuple[player_sum, dealer_hand, usable_aces, other_players_sum]
-
+        #obs = tuple[player_sum, dealer_hand, usable_aces, other_players_sum]
+        obs = tuple[player_sum, dealer_hand, usable_aces]
         action = int(np.argmax(self.q_values[obs]))
         if action == 0:
             return "s"
@@ -91,7 +94,8 @@ class BlackJackAgentV2:
                             has_ace += 1
                     usable_aces = has_ace - used_aces
 
-                    obs = tuple[player_sum, dealer_hand, usable_aces, other_players_sum]
+                    #obs = tuple[player_sum, dealer_hand, usable_aces, other_players_sum]
+                    obs = tuple[player_sum, dealer_hand, usable_aces]
                     action_exp = strategies.expected_value_strategy(players_hand, player_hand, dealer_hand)
                     
                     if action_exp == action:
@@ -113,8 +117,8 @@ class BlackJackAgentV2:
                             if card == 'A':
                                 has_ace += 1
                         usable_aces = has_ace - used_aces
-                        new_obs = tuple[player_sum, dealer_hand, usable_aces, other_players_sum]
-
+                        #new_obs = tuple[player_sum, dealer_hand, usable_aces, other_players_sum]
+                        new_obs = tuple[player_sum, dealer_hand, usable_aces]
                         reward_n = -1
                         if counter + 1 == len(player_data[0]):
                             reward_n = reward[0]
