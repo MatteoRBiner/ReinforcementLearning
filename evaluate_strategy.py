@@ -4,7 +4,7 @@ import python_blackjack_simulator as bj
 import matplotlib.pyplot as plt
 
 if __name__ == "__main__":
-    repetitions = 5000
+    repetitions = 10000
     total_reward = 0
     agent = ag.BlackJackAgentV2(0.01, 1, 2/repetitions, 0.1)
     agent.train(repetitions)
