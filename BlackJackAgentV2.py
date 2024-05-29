@@ -69,10 +69,6 @@ class BlackJackAgentV2:
     def train(self, repetitions):
         total_reward = 0
         i = 0
-        counter1 = 0
-        counter2 = 0
-        counter3 = 0
-        counter4 = 0
         while i < repetitions:
             reward, player_data, final_state = bj.game(self.get_action, strategies.expected_value_strategy)
             total_reward += reward[0]
@@ -106,9 +102,7 @@ class BlackJackAgentV2:
                     if action == "s":
                         action_n = 0
                         temporal_difference = (additional_reward + reward[0] - self.q_values[obs][action_n])
-                        counter1 += 1
                     else:
-                        counter2 += 1
                         action_n = 1
                         player_hand = final_state[0][0][0:(2+counter)]
                         player_sum , used_aces = bj.total(player_hand, True)
@@ -122,9 +116,7 @@ class BlackJackAgentV2:
                         reward_n = -1
                         if counter + 1 == len(player_data[0]):
                             reward_n = reward[0]
-                            counter3 += 1
                         else:
-                            counter4 += 1
                             if action_exp == "h":
                                 reward_n = 1
 
@@ -135,10 +127,7 @@ class BlackJackAgentV2:
                 self.decay_epsilon()
                 i += 1
         print(f"Average reward during training: {total_reward/i}")
-        #print(counter1)
-        #print(counter2)
-        #print(counter3)
-        #print(counter4)
+
 
 if __name__ == "__main__":
     repetitions = 10000
