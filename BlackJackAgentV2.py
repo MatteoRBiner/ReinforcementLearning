@@ -2,6 +2,7 @@ import python_blackjack_simulator as bj
 import numpy as np
 import strategies
 from collections import defaultdict
+import matplotlib.pyplot as plt
 
 class BlackJackAgentV2:
     def __init__(self,
@@ -68,11 +69,18 @@ class BlackJackAgentV2:
 
     def train(self, repetitions):
         total_reward = 0
+        reward_list = []
+        length_list = []
+        avg_length = 0
         i = 0
         while i < repetitions:
             reward, player_data, final_state = bj.game(self.get_action, strategies.expected_value_strategy)
             total_reward += reward[0]
-            
+            avg_reward = total_reward / (i+1)
+            reward_list.append(avg_reward)
+            avg_length = (i * avg_length + len(player_data[0])) / (i+1)
+            length_list.append(avg_length)
+
             if not(player_data[0] == []):
                 counter = 0
                 for action in player_data[0]:
@@ -127,6 +135,13 @@ class BlackJackAgentV2:
                 self.decay_epsilon()
                 i += 1
         print(f"Average reward during training: {total_reward/i}")
+        fig, axs = plt.subplots(ncols=2, figsize=(12, 5))
+        axs[0].set_title("Episode average rewards")
+        axs[0].plot(range(len(reward_list)), reward_list)
+        axs[1].set_title("Episode average lengths")
+        axs[1].plot(range(len(length_list)), length_list)
+        plt.tight_layout()
+        plt.show()
 
 
 if __name__ == "__main__":
